@@ -5,8 +5,8 @@ using LinqQueryPrectice.View;
 
 Console.WriteLine("Hello, World!");
 
-LinqDataProvider translator = new LinqDataProvider();
-ConsolePrint linqPrectice = new ConsolePrint();
+LinqDataProvider dataProvider = new LinqDataProvider();
+ConsolePrint consolePrinter = new ConsolePrint();
 
-QueryExecutor queryExecutor = new QueryExecutor(translator, linqPrectice);
+QueryExecutor queryExecutor = new QueryExecutor(dataProvider, consolePrinter);
 queryExecutor.CreateAndRunQuery();
