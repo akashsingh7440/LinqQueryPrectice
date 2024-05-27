@@ -28,7 +28,7 @@ namespace LinqQueryPrectice.QueryLogic
             seprator();
 
             //Find Total number of employee in every department.
-
+            
 
             seprator();
             //Get list of employee who joind after 2010.
@@ -49,6 +49,53 @@ namespace LinqQueryPrectice.QueryLogic
             _consolePrint.EmployeeData(highestPaidEmployees);
             seprator();
 
+            seprator();
+            //Get Number of Employee join in perticular year.
+            var employeeGroupByJoingYear = _dataProvidor.employees.GroupBy(x => x.JoiningYear);
+            foreach(var employee in employeeGroupByJoingYear)
+            {
+                Console.WriteLine($"Employee Join in {employee.Key} : {employee.Count()}");
+            }
+            seprator();
+
+            //seprator();
+            ////Get Employee with its Department Name.
+            //var employeeGroupByJoing = _dataProvidor.employees.GroupBy(x => x.JoiningYear);
+            //foreach (var employee in employeeGroupByJoingYear)
+            //{
+            //    Console.WriteLine($"Employee Join in {employee.Key} : {employee.Count()}");
+            //}
+            //seprator();
+
+            //Join Queries
+
+
+            var customer = _dataProvidor.customers;
+            var order = _dataProvidor.orders;
+
+            //Inner Join: List all customers along with their orders. Display customer name, order ID, and order amount.
+            seprator();
+            var innerJoin = from c in customer
+                            join o in order on c.CustomerId  equals o.CustomerId
+                            select new { c.FirstName, c.LastName, o.OrderId, o.OrderAmount, o.OrderDate };
+            foreach(var c in innerJoin)
+            {
+                Console.WriteLine($"{c.FirstName} {c.LastName} \t: \t{c.OrderId} \t{c.OrderAmount}  \t{c.OrderDate}");
+            } 
+            seprator();
+
+            //  Join with Aggregate: Calculate the total order amount for each customer and display customer name and total order amount.
+            seprator();
+            var innerjoin = from o in order
+                            group o by o.CustomerId into g
+                            join c in customer on g.Key equals c.CustomerId
+                            select new { c.FirstName, c.LastName, TotalAmount = g.Sum(x => x.OrderAmount) };
+            foreach (var c in innerjoin)
+            {
+                Console.WriteLine($"{c.FirstName} {c.LastName} \t: \t{c.TotalAmount}");
+            }
+
+            seprator();
         }
         private void seprator()
         {

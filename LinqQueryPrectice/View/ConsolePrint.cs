@@ -40,5 +40,30 @@ namespace LinqQueryPrectice.View
                     $"Salary : {employee.Salary}\n");
             }
         }
+
+        public void CustomerData(List<Customer> customers)
+        {
+            Console.WriteLine("Customers:");
+            foreach (var customer in customers)
+            {
+                Console.WriteLine($"ID: {customer.CustomerId} \n" +
+                    $"Name: {customer.FirstName} {customer.LastName} \n" +
+                    $"Email: {customer.Email} \n" +
+                    $"Phone: {customer.Phone} \n");
+            }
+        }
+
+        public void OrderData(List<Order> orders)
+        {
+            Console.WriteLine("\nOrders:");
+            // Printing orders
+            foreach (var order in orders)
+            {
+                Console.WriteLine($"Order ID: {order.OrderId} \n" +
+                    $"Customer ID: {order.CustomerId} \n" +
+                    $"Order Date: {order.OrderDate.ToShortDateString()} \n" +
+                    $"Amount: {order.OrderAmount:C} \n");
+            }
+        }
     }
 }
