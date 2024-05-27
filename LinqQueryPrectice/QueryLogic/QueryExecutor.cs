@@ -86,15 +86,26 @@ namespace LinqQueryPrectice.QueryLogic
 
             //  Join with Aggregate: Calculate the total order amount for each customer and display customer name and total order amount.
             seprator();
-            var innerjoin = from o in order
+            var innerjoin1 = from o in order
                             group o by o.CustomerId into g
                             join c in customer on g.Key equals c.CustomerId
                             select new { c.FirstName, c.LastName, TotalAmount = g.Sum(x => x.OrderAmount) };
-            foreach (var c in innerjoin)
+            foreach (var c in innerjoin1)
             {
                 Console.WriteLine($"{c.FirstName} {c.LastName} \t: \t{c.TotalAmount}");
             }
 
+            seprator();
+
+            seprator();
+            var innerjoin2 = from o in order
+                             group o by o.CustomerId into g
+                             join c in customer on g.Key equals c.CustomerId
+                             select new { c.FirstName, c.LastName, Orders = g.Count() };
+            foreach (var c in innerjoin2)
+            {
+                Console.WriteLine($"{c.FirstName} {c.LastName} \t: \t{c.Orders}");
+            }
             seprator();
         }
         private void seprator()
